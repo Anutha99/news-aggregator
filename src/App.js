@@ -1,36 +1,14 @@
-// src/App.js
-import React, { useState, useEffect } from 'react';
-import ArticleList from './Components/ArticleList';
-import { fetchArticles } from './api';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Home from './components/pages/Home'; 
 
 const App = () => {
-  const [articles, setArticles] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filters, setFilters] = useState({
-    date: '',
-    category: '',
-    source: '',
-  });
-
-  // Fetch articles when search query or filters change
-  useEffect(() => {
-    const fetchData = async () => {
-      const fetchedArticles = await fetchArticles(searchQuery, filters);
-      setArticles(fetchedArticles);
-    };
-    fetchData();
-  }, [searchQuery, filters]);
-
   return (
-    <div className="app-container">
-      {/* Filters Section */}
-      <div className="filters-container">
-        {/* Add your filter components here, such as search input, source selector, category selector, etc. */}
-      </div>
-
-      {/* Articles List */}
-      <ArticleList articles={articles} />
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </Router>
   );
 };
 

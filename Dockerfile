@@ -1,21 +1,18 @@
-# Use Node.js 16 as base image
-FROM node:16-alpine
+# Use Node.js image as the base
+FROM node:16
 
-# Set working directory
+# Set the working directory
 WORKDIR /app
 
-# Copy package.json and install dependencies
-COPY package*.json ./
+# Install dependencies
+COPY package.json package-lock.json ./
 RUN npm install
 
-# Copy all source code into the container
+# Copy the rest of the application files
 COPY . .
 
-# Build the React app for production
-RUN npm run build
-
-# Expose the port that the app will run on
+# Expose the default port
 EXPOSE 3000
 
-# Start the application
+# Run the application
 CMD ["npm", "start"]
